@@ -5,7 +5,7 @@ import ShoppingList from './src/components/ShoppingList';
 import Header from './src/components/Header';
 
 
-export default class App extends Component {  
+export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>

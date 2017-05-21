@@ -41,13 +41,12 @@ export default QuantityManager;
 
 const styles = StyleSheet.create({
   wrapper: {
-    borderWidth: 1,
     flex: 1,
-    justifyContent: 'center'
+    alignItems: 'center'
   },
   buttons: {
-    flexDirection: 'row',
-    borderWidth: 1,
+    width: 50,
+    flex: 1,
     justifyContent: 'center'
   }
 });

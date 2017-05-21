@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    borderWidth: 1,
     height: 200
   }
 });

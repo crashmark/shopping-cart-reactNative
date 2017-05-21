@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, View } from 'react-native';
+import { StyleSheet, View, ListView } from 'react-native';
 import OrderItem from './OrderItem';
 import Total from './Total';
 
@@ -7,52 +7,69 @@ class ShoppingList extends Component {
   //state = { total: 0 };
   constructor(props) {
     super(props);
-    /*this.ds = new ListView.DataSource({
+    this.ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1.title !== r2.title
-    });*/
-    this.state = { total: 0 };
+    });
+    this.state = {
+      total: 0,
+      dataSource: this.ds.cloneWithRows([]),
+    };
   }
-
+  /*<OrderItem
+    img="https://pbs.twimg.com/profile_images/569593540674473984/slHSRznT.jpeg"
+    title="BUH"
+    desc="buh"
+    price={25.36}
+    onQuantityUpdate={this.updateTotal.bind(this)}
+  />
+  <OrderItem
+    img="https://pbs.twimg.com/profile_images/569593540674473984/slHSRznT.jpeg"
+    title="BUH"
+    desc="buh"
+    price={25.36}
+    onQuantityUpdate={this.updateTotal.bind(this)}
+  />
+  <OrderItem
+    img="https://pbs.twimg.com/profile_images/569593540674473984/slHSRznT.jpeg"
+    title="BUH"
+    desc="buh"
+    price={25.36}
+    onQuantityUpdate={this.updateTotal.bind(this)}
+  />
+  <OrderItem
+    img="https://pbs.twimg.com/profile_images/569593540674473984/slHSRznT.jpeg"
+    title="BUH"
+    desc="buh"
+    price={25.36}
+    onQuantityUpdate={this.updateTotal.bind(this)}
+  />*/
+  componentWillMount() {
+    fetch('https://www.dmi.unict.it/~calanducci/LAP2/data.json',
+      { headers: { 'Cache-Control': 'no-cache' } }
+    )
+    .then(response => response.json())
+    .then(responseData => this.setState({ dataSource: this.ds.cloneWithRows(responseData.items) }))
+    .catch(error => alert('Errore caricando file json', error));
+  }
   updateTotal(amount) {
       this.setState({ total: this.state.total + amount });
   }
-
   render() {
     return (
       <View style={styles.wrapper}>
         <Total total={this.state.total} />
-        <ScrollView>
-
-          <OrderItem
-            img="https://pbs.twimg.com/profile_images/569593540674473984/slHSRznT.jpeg"
-            title="BUH"
-            desc="buh"
-            price={25.36}
-            onQuantityUpdate={this.updateTotal.bind(this)}
-          />
-          <OrderItem
-            img="https://pbs.twimg.com/profile_images/569593540674473984/slHSRznT.jpeg"
-            title="BUH"
-            desc="buh"
-            price={25.36}
-            onQuantityUpdate={this.updateTotal.bind(this)}
-          />
-          <OrderItem
-            img="https://pbs.twimg.com/profile_images/569593540674473984/slHSRznT.jpeg"
-            title="BUH"
-            desc="buh"
-            price={25.36}
-            onQuantityUpdate={this.updateTotal.bind(this)}
-          />
-          <OrderItem
-            img="https://pbs.twimg.com/profile_images/569593540674473984/slHSRznT.jpeg"
-            title="BUH"
-            desc="buh"
-            price={25.36}
-            onQuantityUpdate={this.updateTotal.bind(this)}
-          />
-
-        </ScrollView>
+        <ListView
+          enableEmptySections
+          dataSource={this.state.dataSource}
+          renderRow={row =>
+            <OrderItem
+              img={row.thumbnailUrl}
+              title={row.title}
+              desc={row.description}
+              price={row.price}
+              onQuantityUpdate={this.updateTotal.bind(this)}
+            />}
+        />
       </View>
     );
   }

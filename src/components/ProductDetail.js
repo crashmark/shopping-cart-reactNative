@@ -22,8 +22,8 @@ ProductDetail.propTypes = {
 
 const styles = StyleSheet.create({
   wrapper: {
-    borderWidth: 1,
-    flex: 2
+    flex: 1,
+    justifyContent: 'center'
   },
   title: {
     fontSize: 16,

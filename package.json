@@ -23,6 +23,6 @@
     "expo": "^16.0.0",
     "prop-types": "^15.5.9",
     "react": "16.0.0-alpha.6",
-    "react-native": "^0.43.4"
+    "react-native": "^0.47.0"
   }
 }
